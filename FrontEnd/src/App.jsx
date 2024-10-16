@@ -1,14 +1,12 @@
-import "./App.css";
-import { FormLogin } from "./components/FormLogin";
-import { useState } from "react";
+// src/App.jsx
+import React from 'react';
+import AddProduct from './components/AddProduct'; // Importa tu componente
 
 function App() {
-  // Corrección: Cambiar la sintaxis de useState
-  const [user, setUser] = useState(null);
-
   return (
-    <div className="App"> {/* Corrección de 'classname' a 'className' */}
-      <FormLogin setUser={setUser} /> {/* Corrección: setuser a setUser */}
+    <div>
+      <h1>Camping Marketplace</h1>
+      <AddProduct /> {/* Renderiza tu componente */}
     </div>
   );
 }
