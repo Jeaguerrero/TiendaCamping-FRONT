@@ -1,4 +1,3 @@
-// src/components/Todo.jsx
 import React from 'react';
 
 const Todo = ({ todo, index, deleteTodo }) => {

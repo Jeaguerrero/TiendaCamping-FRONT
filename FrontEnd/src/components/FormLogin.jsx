@@ -1,14 +1,13 @@
-import "./Form.css"
-import { useState } from "react"
-import { FaUserAlt, FaLock } from "react-icons/fa"
-import { useNavigate } from "react-router-dom"
+import "./Form.css";
+import { useState } from "react";
+import { FaUserAlt, FaLock } from "react-icons/fa";
+import { useNavigate, Link } from "react-router-dom";
 
 export function FormLogin({ setUser }) {
-    const [nombre, setNombre] = useState("")
-    const [contraseña, setContraseña] = useState("")
-    const [error, setError] = useState(false)
-    const navigate = useNavigate()
-
+    const [nombre, setNombre] = useState("");
+    const [contraseña, setContraseña] = useState("");
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,8 +17,8 @@ export function FormLogin({ setUser }) {
         }
         setError(false);
 
-        setUser([nombre])
-        navigate('/home')
+        setUser(nombre);  // Establece el usuario actual
+        navigate("/home");  // Redirige a la página Home
     };
 
     return (
@@ -50,13 +49,13 @@ export function FormLogin({ setUser }) {
                     <label>
                         <input type="checkbox" /> Mantener sesión iniciada
                     </label>
-                    <a href="#">¿Olvidaste tu contraseña?</a>
+                    <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>  {/* Redirige a recuperar contraseña */}
                 </div>
                 <button type="submit">Iniciar sesión</button>
                 {error && <p>Por favor, rellena todos los campos</p>}
                 <div className="register-link">
                     <p>
-                        ¿Aún no tenés cuenta? <a href="#">¡Registrate acá!</a>
+                        ¿Aún no tenés cuenta? <Link to="/register">¡Registrate acá!</Link>  {/* Redirige a registro */}
                     </p>
                 </div>
             </form>
