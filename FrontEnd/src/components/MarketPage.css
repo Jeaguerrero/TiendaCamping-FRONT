@@ -1,0 +1,33 @@
+/* src/components/MarketPage.css */
+
+.market-container {
+    padding: 20px; /* Space around the content */
+    margin-top: 100px;
+    margin-left: 20px;
+    background-color: grey;
+  }
+  
+  .products-box {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow items to wrap onto the next line */
+    gap: 10px; /* Space between items */
+    padding: 15px; /* Space inside the box */
+    border: 1px solid #ccc; /* Border around the box */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Background color for the box */
+    gap: 10px; /* Space between items */
+  }
+  
+  .product-item {
+    padding: 10px; /* Space inside each product item */
+    border: 1px solid #ddd; /* Border for each product */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #d30505; /* Background color for each product */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+    text-align: center; /* Center align text */
+  }
+  
+  .product-item:hover {
+    background-color: #f0f0f0; /* Change background on hover */
+  }
+  

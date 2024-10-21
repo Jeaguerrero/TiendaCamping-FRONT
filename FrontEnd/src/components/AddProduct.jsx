@@ -113,7 +113,11 @@ const Form = () => {
         {products.map((prod, index) => (
           <Todo
             key={index}
-            todo={`${prod.id} - ${prod.description}`}
+            img = {prod.image}
+            id = {prod.id}
+            description = {prod.description}
+            stock = {prod.stock}
+            price = {prod.price}
             index={index}
             deleteTodo={deleteProduct}
           />
@@ -124,3 +128,4 @@ const Form = () => {
 };
 
 export default Form;
+

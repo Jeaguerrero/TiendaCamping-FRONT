@@ -76,6 +76,29 @@
   color: #61dafb; 
 }
 
+.title {
+  position: absolute;
+  padding: 10px;
+  top: 5px;
+  left: 5px;
+  font-size: 48px;
+  font-weight: "bold";
+  color: white;
+  background-color: maroon;
+}
+
+.addProduct {
+  position: absolute;
+  top: 100px;
+  left: 5px;
+}
+
+.marketPlace {
+  position: absolute;
+  top: 100px;
+  left: 5px;
+}
+
 .navbar .menu-icon {
   display: none; 
 }

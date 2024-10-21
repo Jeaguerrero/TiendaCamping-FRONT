@@ -1,12 +1,13 @@
 // src/App.jsx
 import React from 'react';
-import AddProduct from './components/AddProduct'; // Importa tu componente
+import './App.css';
+import MarketPage from './components/MarketPage';
 
 function App() {
   return (
     <div>
-      <h1>Camping Marketplace</h1>
-      <AddProduct /> {/* Renderiza tu componente */}
+      <div className='title'>Camping Marketplace</div>
+      <div><MarketPage /> {/* Renderiza tu componente */}</div>
     </div>
   );
 }
