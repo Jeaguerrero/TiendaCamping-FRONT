@@ -1,14 +1,23 @@
-// src/App.jsx
 import React from 'react';
-import AddProduct from './components/AddProduct'; // Importa tu componente
+import AddProduct from './components/productos/AddProduct';
+import Register from './components/Register';
+import FormLogin from './components/FormLogin';
+import './App.css'; // Importa los estilos globales de la aplicación
 
 function App() {
   return (
-    <div>
-      <h1>Camping Marketplace</h1>
-      <AddProduct /> {/* Renderiza tu componente */}
-    </div>
+    
+      <div className="app">
+        <FormLogin /> 
+        <Register />
+        <AddProduct />
+        
+    {/* Renderiza la barra de navegación */}
+       
+      </div>
+   
   );
 }
+
 
 export default App;
