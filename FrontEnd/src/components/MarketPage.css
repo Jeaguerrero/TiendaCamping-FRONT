@@ -1,0 +1,57 @@
+/* src/components/MarketPage.css */
+.market-container {
+  padding: 20px;
+}
+
+.products-box {
+  display: grid; /* Utiliza grid para un diseño similar a un marketplace */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajusta el número de columnas según el espacio */
+  gap: 20px; /* Espacio entre los productos */
+}
+
+.product-item {
+  border: 1px solid #ddd; /* Estilo de borde */
+  padding: 10px;
+  border-radius: 5px;
+  background-color: grey; /* Color de fondo para cada producto */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+  display: flex; /* Flex para alinear la imagen y los detalles */
+  flex-direction: column; /* Alinea verticalmente */
+  align-items: center; /* Centra los elementos */
+}
+
+.product-image {
+  width: 100%; /* Imagen ocupa el 100% del ancho del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+  margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.product-details {
+  text-align: center; /* Centra el texto */
+}
+
+.product-name {
+  font-weight: bold;
+}
+
+.product-price {
+  color: #333;
+}
+
+.quantity-input {
+  width: 60px; /* Ancho fijo para el campo de cantidad */
+  margin: 10px 0; /* Espacio vertical */
+}
+
+.add-to-cart-button {
+  background-color: #28a745; /* Color verde para el botón */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.add-to-cart-button:hover {
+  background-color: #218838; /* Color más oscuro al pasar el mouse */
+}

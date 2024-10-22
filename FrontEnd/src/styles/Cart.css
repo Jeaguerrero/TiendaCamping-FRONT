@@ -1,33 +1,28 @@
 /* Contenedor del carrito deslizante */
 .cart-container {
-  position: fixed;
-  top: 0;
-  right: -100%; /* Oculta el carrito cuando no está abierto */
-  width: 350px;
-  height: 100%;
-  background-color: #c5f8c6;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-  transition: right 0.3s ease-in-out;
-  z-index: 1000;
-  padding: 1rem;
-  border-radius: 5px;
-  color: #222222; 
-
-}
-
-/* Cuando el carrito está abierto */
-.cart-container.open {
-  right: 0; /* Se mantiene en el borde derecho */
-}
-
-/* Encabezado del carrito */
-.cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-}
+    position: fixed;
+    top: 0;
+    right: -100%; /* Fuera de la pantalla cuando está cerrado */
+    width: 400px;
+    height: 100%;
+    background-color: grey;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out; /* Transición suave al abrir/cerrar */
+    z-index: 1000;
+    padding: 1rem;
+  }
+  
+  /* Cuando el carrito está abierto */
+  .cart-container.open {
+    right: 0; /* El carrito se desliza hacia dentro de la vista */
+  }
+  
+  /* Encabezado del carrito */
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
 .cart-header h2 {
   font-size: 1.5rem;
