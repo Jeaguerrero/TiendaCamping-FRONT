@@ -1,141 +1,113 @@
 /* Contenedor del carrito deslizante */
 .cart-container {
-    position: fixed;
-    top: 0;
-    right: -100%; /* Fuera de la pantalla cuando está cerrado */
-    width: 400px;
-    height: 100%;
-    background-color: #c5f8c6;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: right 0.3s ease-in-out; /* Transición suave al abrir/cerrar */
-    z-index: 1000;
-    padding: 1rem;
-  }
-  
-  /* Cuando el carrito está abierto */
-  .cart-container.open {
-    right: 0; /* El carrito se desliza hacia dentro de la vista */
-  }
-  
-  /* Encabezado del carrito */
-  .cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .cart-header h2 {
-    font-size: 1rem; /* Ajusta el tamaño según lo que prefieras */
-    margin: 0; /* Asegúrate de que no haya márgenes innecesarios */
-  }
-  
-  .cart-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #045835; /* Línea recta al final de cada producto */
-    margin-bottom: 10px;
-    
-  }
-
-  .cart-item input[type="number"] {
-    margin-right: 10px; /* Añade un margen entre el cuadro de cantidad y el botón */
-  }
-  
-  .cart-item button {
-    margin-right: 10px; /* Mantiene la separación entre los botones de Actualizar y Eliminar */
-  }
-  
-  .cart-item:last-child {
-    border-bottom: none; /* Evitar la línea debajo del último producto */
-  }
-  
-  /* Botón para cerrar el carrito */
-  .close-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  /* Estilo del contenido del carrito */
-  .cart-content {
-    margin-top: 1rem;
-    overflow-y: auto;
-    height: calc(100% - 50px); /* Espacio para el contenido sin sobrepasar el encabezado */
-  }
-  
-  /* Botón para abrir el carrito */
-  .cart-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    z-index: 1001; /* Asegura que esté encima de otros elementos */
-  }
-  
-  .coupon-section {
-    margin-top: 20px;
-  }
-  
-  .coupon-section input {
-    padding: 5px;
-    font-size: 1rem;
-    margin-right: 10px;
-  }
-  
-  .coupon-section button {
-    padding: 5px 10px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .total {
-    margin-top: 20px;
-    font-weight: bold;
-  }
-
-
-  /* Ajustar el estilo de los botones del carrito */
-.cart-item button {
-  font-size: 0.8rem; /* Ajusta el tamaño de la fuente */
-  padding: 5px 10px; /* Reduce el padding */
-  margin: 5px 0; /* Opcional, para un poco de separación */
-  border-radius: 4px; /* Puedes ajustar el radio si lo prefieres */
-  margin-right: 10px; /* Aumenta la separación entre los botones */
+  position: fixed;
+  top: 0;
+  right: -100%; /* Oculta el carrito cuando no está abierto */
+  width: 350px;
+  height: 100%;
+  background-color: #c5f8c6;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  padding: 1rem;
+  border-radius: 5px;
+  color: #222222; 
 
 }
 
-/* Ajuste del botón "Aplicar Cupón" */
+/* Cuando el carrito está abierto */
+.cart-container.open {
+  right: 0; /* Se mantiene en el borde derecho */
+}
+
+/* Encabezado del carrito */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.cart-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #045835;
+}
+
+.cart-item input[type="number"] {
+  width: 50px;
+  text-align: center; /* Centra el número dentro del campo */
+  margin-right: 10px;
+}
+
+.cart-item button,
 .coupon-section button {
-  font-size: 0.8rem; /* Tamaño de la fuente más pequeño */
-  padding: 5px 10px; /* Reduce el padding */
+  font-size: 0.9rem;
+  padding: 5px 10px; /* Reduce el tamaño de los botones */
+  margin-right: 5px; /* Espacio entre botones */
+  border: none;
+  border-radius: 4px;
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
 }
 
-/* Estilos para los inputs y botones en la lista de productos */
-.product-list input[type="number"] {
-  margin-right: 10px; /* Añade margen entre el cuadro de cantidad y el botón */
-  padding: 5px;
+
+.cart-item button:hover,
+.coupon-section button:hover {
+  background-color: darkgray; 
 }
 
-.product-list button {
-  margin-right: 10px; /* Mantén una separación entre botones */
-  padding: 8px 16px; /* Ajusta el tamaño del botón */
-  font-size: 14px; /* Ajusta el tamaño de la fuente */
+
+.cart-content {
+  margin-top: 1rem;
+  overflow-y: auto;
+  height: calc(100% - 50px);
+  background-color: #c5f8c6; 
 }
 
-.product-list p {
-  color: white; /* Cambia el color de la fuente a blanco */
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: #ffffff;
 }
 
-/* Sección de finalizar compra */
-.checkout-section {
+.coupon-section {
   margin-top: 20px;
-  text-align: center;
 }
 
+.coupon-section p {
+  margin-bottom: 5px; /* Espacio entre el texto y el input */
+  color: #222222;
+  font-size: 1rem;
+}
+
+.coupon-input-wrapper {
+  display: flex;
+  align-items: center; /* Alinea el botón y el input verticalmente */
+}
+
+.coupon-section input {
+  padding: 5px;
+  font-size: 0.9rem;
+  margin-right: 10px;
+  width: 70%; /* Ajusta el ancho del input según sea necesario */
+}
+
+
+
+.total {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Estilo del botón de compra */
 .checkout-button {
   background-color: seagreen;
   color: white;

@@ -11,7 +11,8 @@ const Product = ({ product }) => {
   useEffect(() => {
     const fetchFinalPrice = async () => {
       try {
-        const response = await fetch(http://localhost:4002/products/${product.id}/final-price);
+      
+        const response = await fetch(`http://localhost:4002/products/${product.id}/final-price`);
         if (!response.ok) {
           throw new Error('Error al obtener el precio final');
         }
@@ -21,7 +22,7 @@ const Product = ({ product }) => {
         console.error('Error:', err);
         setError(err.message);
       } finally {
-        setLoading(false); // Asegúrate de marcar como no cargando, independientemente del resultado
+        setLoading(false); 
       }
     };
 
@@ -35,7 +36,7 @@ const Product = ({ product }) => {
   const discountedPrice = finalPrice?.toLocaleString();
 
   return (
-    <Link to={/ViewProduct/${product.id}} className="product-link">
+    <Link to={`/ViewProduct/${product.id}`} className="product-link">
       <div className="product-card">
         <img src={product.img} alt={product.name} className="product-image" />
         <div className="product-name">{product.name}</div>
