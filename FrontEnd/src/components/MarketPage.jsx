@@ -12,12 +12,11 @@ const MarketPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const token = localStorage.getItem('access_token'); // Obtener el token de localStorage
         const response = await fetch('http://localhost:4002/products', {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`, // Incluir el token en los headers
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("access_token")}`
           }
         });
         if (!response.ok) {
