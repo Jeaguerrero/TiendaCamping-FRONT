@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import ProductList from './components/ProductList'; 
+//import ProductList from './components/ProductList'; 
 import FormLogin from './components/FormLogin'; 
 import Cart from './components/Cart'; 
 import Navbar from './components/NavBar'; 
@@ -8,6 +8,7 @@ import AddProducts from './components/productos/AddProduct'
 import Register from './components/Register'
 import { CartManager } from './components/CartManager'; 
 import './App.css'; 
+import ProductList from './components/MarketPage';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -25,7 +26,8 @@ function App() {
         <Route path="/productos" element={<ProductList />} />
         <Route path="/agregar" element={<AddProducts />} />
         <Route path="/login" element={<FormLogin />} />
-        <Route path="/registrarse" element={<Register />} />
+        <Route path="/register" element={<Register />} />
+
       </Routes>
       <Cart isOpen={isCartOpen} toggleCart={toggleCart} />
     </CartManager>

@@ -5,7 +5,7 @@
     right: -100%; /* Fuera de la pantalla cuando está cerrado */
     width: 400px;
     height: 100%;
-    background-color: #c5f8c6;
+    background-color: grey;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-in-out; /* Transición suave al abrir/cerrar */
     z-index: 1000;
