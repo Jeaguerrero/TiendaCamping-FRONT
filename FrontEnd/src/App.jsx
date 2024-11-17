@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-//import ProductList from './components/ProductList'; 
+import EditProduct from './components/edit_Products/ProductEditList';
 import FormLogin from './components/FormLogin'; 
 import Cart from './components/Cart'; 
 import Navbar from './components/NavBar'; 
@@ -27,7 +27,7 @@ function App() {
         <Route path="/agregar" element={<AddProducts />} />
         <Route path="/login" element={<FormLogin />} />
         <Route path="/register" element={<Register />} />
-
+        <Route path="/editProduct" element={<EditProduct />} />
       </Routes>
       <Cart isOpen={isCartOpen} toggleCart={toggleCart} />
     </CartManager>
