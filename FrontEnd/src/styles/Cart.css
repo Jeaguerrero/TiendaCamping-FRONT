@@ -10,6 +10,7 @@
     transition: right 0.3s ease-in-out; /* Transición suave al abrir/cerrar */
     z-index: 1000;
     padding: 1rem;
+    color: #222222;
   }
   
   /* Cuando el carrito está abierto */
@@ -47,7 +48,7 @@
   margin-right: 5px; /* Espacio entre botones */
   border: none;
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: seagreen;
   transition: background-color 0.3s ease;
 }
 
@@ -115,5 +116,5 @@
 }
 
 .checkout-button:hover {
-  background-color: darkgreen;
+  background-color: gray;
 }

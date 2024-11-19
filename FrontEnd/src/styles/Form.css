@@ -1,0 +1,41 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    gap: 1rem;
+}
+
+input{
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #000;
+    width: 100%;
+}
+
+button{
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #000;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #fff;
+    color: #000;
+}
+
+title{
+    text-align: center;
+}
+
+
+
+
+
+

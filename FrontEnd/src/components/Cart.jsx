@@ -1,19 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { CartContext } from './CartManager';
 import '../styles/Cart.css';
-
+ 
 const Cart = ({ isOpen, toggleCart }) => {
-  const { cartItems, removeFromCart, addToCart, setCartItems } = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart } = useContext(CartContext); // Agregamos clearCart para vaciar el carrito
   const [quantitiesToUpdate, setQuantitiesToUpdate] = useState({});
   const [coupon, setCoupon] = useState('');
   const [discount, setDiscount] = useState(0);
-  const [userName, setUserName] = useState(''); // Para almacenar el nombre del usuario
-
+ 
   const validCoupons = {
     'OFERTA10': 10,
     'OFERTA20': 20
   };
-
+ 
   useEffect(() => {
     const initialQuantities = {};
     cartItems.forEach(item => {
@@ -21,15 +20,15 @@ const Cart = ({ isOpen, toggleCart }) => {
     });
     setQuantitiesToUpdate(initialQuantities);
   }, [cartItems]);
-
+ 
   const handleQuantityChange = (productId, value) => {
     const newQuantity = parseInt(value, 10) || 1;
     setQuantitiesToUpdate({ ...quantitiesToUpdate, [productId]: newQuantity });
   };
-
+ 
   const handleUpdateQuantity = (product) => {
     const newQuantity = quantitiesToUpdate[product.id] || product.quantity;
-
+ 
     if (newQuantity > product.stock) {
       alert(`No hay suficiente stock para ${product.name}.`);
     } else if (newQuantity < 1) {
@@ -38,11 +37,11 @@ const Cart = ({ isOpen, toggleCart }) => {
       addToCart(product, newQuantity - product.quantity);
     }
   };
-
+ 
   const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const discountAmount = ((totalPrice * discount) / 100).toFixed(2);
   const discountedPrice = (totalPrice - discountAmount).toFixed(2);
-
+ 
   const applyCoupon = () => {
     if (validCoupons[coupon]) {
       setDiscount(validCoupons[coupon]);
@@ -52,62 +51,63 @@ const Cart = ({ isOpen, toggleCart }) => {
       setDiscount(0);
     }
   };
-
-  // **Aquí está la función handleCheckout con el nombre del usuario**
-  const handleCheckout = async () => {
-    if (!userName) {
-      alert('Por favor, ingresa tu nombre para finalizar la compra');
-      return;
-    }
-
-    const orderData = {
-      count: cartItems.length,
-      date: new Date().toISOString().slice(0, 10), 
-      finalPrice: discountedPrice, 
-      user: { name: userName } // Aquí enviamos el nombre del usuario
-    };
-
+ 
+  // Función para manejar la compra
+  const handlePurchase = async () => {
     try {
-      const response = await fetch('http://localhost:8080/orders', {
-        method: 'POST',
+      const token = localStorage.getItem("access_token");
+  
+      // Crear la orden con el descuento
+      const orderResponse = await fetch("http://localhost:4002/orders", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(orderData),
+        body: JSON.stringify({
+          count: cartItems.length, // Número de ítems
+          finalPrice: totalPrice, // Precio total sin descuento
+          date: new Date().toISOString(), // Fecha actual
+          discountPercentage: discount, // Porcentaje de descuento
+        }),
       });
-
-      if (!response.ok) {
-        throw new Error('Error al crear la orden');
+  
+      if (!orderResponse.ok) {
+        throw new Error("Error al crear la orden");
       }
-
-      const createdOrder = await response.json();
-
-      await Promise.all(
-        cartItems.map((item) =>
-          fetch('http://localhost:8080/order-items', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              product: { id: item.id },
-              quantity: item.quantity,
-              finalPrice: item.price * item.quantity,
-              order: { id: createdOrder.id },
-            }),
-          })
-        )
-      );
-
-      // Vaciar el carrito
-      setCartItems([]);
-      alert('Compra realizada con éxito');
+  
+      const newOrder = await orderResponse.json();
+  
+      // Crear cada artículo de la orden
+      for (const item of cartItems) {
+        const orderItemResponse = await fetch("http://localhost:4002/order-items", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            order: { id: newOrder.id },
+            product: { id: item.id },
+            quantity: item.quantity,
+            finalPrice: item.price * item.quantity,
+          }),
+        });
+  
+        if (!orderItemResponse.ok) {
+          throw new Error(`Error al crear el artículo: ${item.name}`);
+        }
+      }
+  
+      alert("¡Compra realizada con éxito!");
+      clearCart(); // Vaciar el carrito
     } catch (error) {
-      console.error('Error en el proceso de compra:', error);
-      alert('Hubo un error en el proceso de compra');
+      alert(`Error durante la compra: ${error.message}`);
     }
   };
-
+  
+  
+ 
   return (
     <div className={`cart-container ${isOpen ? 'open' : ''}`}>
       <div className="cart-header">
@@ -123,7 +123,7 @@ const Cart = ({ isOpen, toggleCart }) => {
               <div key={item.id} className="cart-item">
                 <p>{item.name} - ${item.price} x {item.quantity}</p>
                 <p>Subtotal: ${(item.price * item.quantity).toFixed(2)}</p>
-                
+               
                 <label>Cantidad:</label>
                 <input
                   type="number"
@@ -132,48 +132,41 @@ const Cart = ({ isOpen, toggleCart }) => {
                   value={quantitiesToUpdate[item.id] !== undefined ? quantitiesToUpdate[item.id] : item.quantity}
                   onChange={(e) => handleQuantityChange(item.id, e.target.value)}
                 />
-                <button onClick={() => handleUpdateQuantity(item)}>Actualizar</button>
+                <button onClick={() => handleUpdateQuantity(item)}>
+                  Actualizar
+                </button>
                 <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
               </div>
             ))}
-
+ 
+            {/* Campo de entrada del cupón */}
             <div className="coupon-section">
               <label htmlFor="coupon">Cupón de descuento:</label>
-              <input 
-                type="text" 
-                id="coupon" 
-                value={coupon} 
-                onChange={(e) => setCoupon(e.target.value.toUpperCase())} 
+              <input
+                type="text"
+                id="coupon"
+                value={coupon}
+                onChange={(e) => setCoupon(e.target.value.toUpperCase())}
                 placeholder="Ingresa tu cupón"
               />
               <button onClick={applyCoupon}>Aplicar Cupón</button>
             </div>
-
+ 
+            {/* Mostrar el descuento si se ha aplicado */}
             {discount > 0 && (
               <>
                 <p>Descuento aplicado: {discount}%</p>
                 <p>Total descuento: -${discountAmount}</p>
               </>
             )}
-
+ 
             <div className="total">
-              Total: ${discountedPrice}
+              Total con descuento: ${discountedPrice}
             </div>
-
-            {/* Ingresar el nombre del usuario antes de finalizar la compra */}
-            <div className="user-name-section">
-              <label htmlFor="userName">Nombre del comprador:</label>
-              <input 
-                type="text" 
-                id="userName" 
-                value={userName} 
-                onChange={(e) => setUserName(e.target.value)} 
-                placeholder="Ingresa tu nombre"
-              />
-            </div>
-
-            <button onClick={handleCheckout} className="checkout-button">
-              Finalizar Compra
+ 
+            {/* Botón para comprar */}
+            <button className="checkout-button" onClick={handlePurchase}>
+              Comprar
             </button>
           </div>
         )}
@@ -181,5 +174,5 @@ const Cart = ({ isOpen, toggleCart }) => {
     </div>
   );
 };
-
+ 
 export default Cart;

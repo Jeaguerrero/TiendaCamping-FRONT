@@ -1,0 +1,53 @@
+.ventas-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+
+    color: #333; /* Texto oscuro */
+  }
+  
+  .ventas-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .ventas-item {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+  }
+  
+  .venta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .venta-header p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .venta-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .venta-items li {
+    font-size: 13px;
+    padding: 5px 0;
+    border-top: 1px solid #ddd;
+  }
+  
+  .venta-items li:first-child {
+    border-top: none;
+  }
+  
+  .ventas-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
