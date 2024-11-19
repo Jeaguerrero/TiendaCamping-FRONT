@@ -1,0 +1,116 @@
+.navbar {
+  width: 100%;
+  min-height: 100px; /* Altura de la navbar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #000; /* Color negro para la navbar */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10; /* Asegúrate de que la navbar esté por encima de otros elementos */
+}
+
+.navbar-brand {
+  margin: 0;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.cart-button-navbar {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  position: relative;
+  outline: none; /* Elimina cualquier borde de enfoque predeterminado */
+  box-shadow: none; /* Elimina cualquier sombra que pueda estar causando el recuadro blanco */
+}
+
+.cart-count {
+  background-color: rgb(243, 63, 63);
+  color: white;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  padding: 3px 6px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+}
+
+.navbar-links li {
+  margin: 0;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.navbar-links a:hover {
+  color: seagreen;
+}
+
+.cart-button-navbar:hover,
+.cart-button-navbar:focus {
+  color: seagreen;
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Contenedor del menú */
+.user-menu {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Estilo del correo del usuario */
+.user-email {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Menú desplegable *//* Menú desplegable */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  list-style: none;
+  z-index: 10;
+}
+.dropdown-menu .dropdown-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: black;
+  text-align: left;
+  text-decoration: none; /* Elimina subrayado */
+  display: block; /* Asegura que todos se comporten como bloques */
+  font-weight: normal;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f5f5f5;
+  color: black;
+}

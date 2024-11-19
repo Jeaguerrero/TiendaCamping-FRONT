@@ -14,16 +14,16 @@ const Register = () => {
 
         // Preparar los datos del usuario para enviar al backend
         const userData = {
-            nombre,
-            apellido,
+            firstName: nombre,  
+            lastName: apellido, 
             email,
             password,
-            rol, // Enviar el rol seleccionado
+            role: rol,         
         };
 
         try {
             // Hacer la llamada a la API del backend
-            const response = await fetch("http://localhost:4002/register", {
+            const response = await fetch("http://localhost:4002/api/v1/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json", // Indicar que enviamos JSON
@@ -32,9 +32,8 @@ const Register = () => {
             });
 
             if (!response.ok) {
-                // Manejar error si la respuesta no es exitosa
-                const errorData = await response.json();
-                throw new Error(errorData.message || "Error en el registro");
+                const errorData = await response.text(); // Obtener el mensaje de error como texto
+                throw new Error(errorData);
             }
 
             // Si la respuesta es exitosa

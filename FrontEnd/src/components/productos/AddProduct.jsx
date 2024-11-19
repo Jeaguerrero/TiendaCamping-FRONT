@@ -1,19 +1,23 @@
 import React, { useState, useRef } from "react";
-import Todo from "./Todo";
- 
+import Todo from "./Todo"; // Asumo que este componente está para renderizar los productos
+
 const Form = () => {
   const [product, setProduct] = useState({
     description: "",
     categoryId: "",
+    categoryId: "",
     stock: "",
     price: "",
+    imageId: "", // Para almacenar el ID de la imagen
     imageId: "", // Para almacenar el ID de la imagen
   });
  
   const [products, setProducts] = useState([]);
   const [imageFile, setImageFile] = useState(null); // Archivo de imagen seleccionado
+  const [searchId, setSearchId] = useState(""); // Estado para buscar producto por ID
+  const [editingProduct, setEditingProduct] = useState(null); // Estado para el producto que está siendo editado
   const hiddenFileInput = useRef(null); // Referencia para el input de archivos
- 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({
@@ -21,18 +25,23 @@ const Form = () => {
       [name]: value,
     });
   };
- 
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImageFile(file); // Guardar el archivo de imagen cargado
   };
- 
+
   const handleClickUploadImage = () => {
+    if (!imageFile) {
+      alert("Por favor selecciona una imagen");
+      return;
+    }
+
     // Leer el archivo de imagen y convertirlo a base64
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64Image = reader.result.split(",")[1]; // Solo obtener la parte base64
- 
+
       // Enviar la imagen al backend para crearla
       fetch("http://localhost:4002/images", {
         method: "POST",
@@ -54,7 +63,7 @@ const Form = () => {
             ...product,
             imageId: imageData.id, // Usar el ID de la imagen obtenida
           };
- 
+
           // Enviar el producto al backend
           fetch("http://localhost:4002/products", {
             method: "POST",
@@ -76,7 +85,7 @@ const Form = () => {
             .catch((error) => {
               console.error("Error:", error.message);
             });
- 
+
           // Limpiar el formulario
           setProduct({
             description: "",
@@ -91,17 +100,52 @@ const Form = () => {
           console.error("Error al subir la imagen:", error.message);
         });
     };
- 
+
     reader.readAsDataURL(imageFile); // Convertir el archivo a base64
   };
- 
-  const handleClick = (event) => {
+
+  const handleClick = () => {
     hiddenFileInput.current.click(); // Abrir el selector de archivos
+  };
+
+  // Función para buscar el producto por su ID
+  const searchProduct = () => {
+    const foundProduct = products.find((prod) => prod.id === searchId);
+    if (foundProduct) {
+      setEditingProduct(foundProduct);
+    } else {
+      alert("Producto no encontrado");
+    }
+  };
+
+  // Función para guardar cambios en el producto
+  const saveEdit = () => {
+    const updatedProducts = products.map((prod) =>
+      prod.id === editingProduct.id ? editingProduct : prod
+    );
+    setProducts(updatedProducts);
+    setEditingProduct(null); // Limpiar el producto que está siendo editado
+  };
+
+  // Función para eliminar el producto por su ID
+  const deleteById = () => {
+    const updatedProducts = products.filter((prod) => prod.id !== editingProduct.id);
+    setProducts(updatedProducts);
+    setEditingProduct(null); // Limpiar el producto que está siendo editado
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditingProduct({
+      ...editingProduct,
+      [name]: value,
+    });
   };
  
   return (
     <>
       <form onSubmit={(e) => e.preventDefault()}>
+        <h2>Agregar Producto</h2>
         <h2>Agregar Producto</h2>
         <label>Nombre del Producto</label> <br />
         <input
@@ -114,6 +158,8 @@ const Form = () => {
         <label>ID Categoría</label> <br />
         <input
           type="text"
+          name="categoryId"
+          value={product.categoryId}
           name="categoryId"
           value={product.categoryId}
           onChange={handleChange}
@@ -134,7 +180,7 @@ const Form = () => {
           value={product.price}
           onChange={handleChange}
         /> <br />
- 
+
         <label>Imagen</label> <br />
         <div onClick={handleClick} style={{ cursor: "pointer" }}>
           <input
@@ -148,9 +194,59 @@ const Form = () => {
           </button>
         </div>
         <br />
- 
+
         <button type="button" onClick={handleClickUploadImage}>Agregar Producto</button>
- 
+
+        <h2>Buscar Producto por ID</h2>
+        <input
+          type="text"
+          placeholder="Buscar por ID"
+          value={searchId}
+          onChange={(e) => setSearchId(e.target.value)}
+        />
+        <button type="button" onClick={searchProduct}>Buscar</button>
+
+        {editingProduct && (
+          <>
+            <h3>Editando Producto ID: {editingProduct.id}</h3>
+
+            <label>Descripción</label> <br />
+            <input
+              type="text"
+              name="description"
+              value={editingProduct.description}
+              onChange={handleEditChange}
+            /> <br />
+
+            <label>ID Categoría</label> <br />
+            <input
+              type="text"
+              name="categoryId"
+              value={editingProduct.categoryId}
+              onChange={handleEditChange}
+            /> <br />
+
+            <label>Stock</label> <br />
+            <input
+              type="number"
+              name="stock"
+              value={editingProduct.stock}
+              onChange={handleEditChange}
+            /> <br />
+
+            <label>Precio</label> <br />
+            <input
+              type="number"
+              name="price"
+              value={editingProduct.price}
+              onChange={handleEditChange}
+            /> <br />
+
+            <button type="button" onClick={saveEdit}>Guardar Cambios</button>
+            <button type="button" onClick={deleteById}>Eliminar Producto</button>
+          </>
+        )}
+        
         {/* Renderizar productos */}
         {products.map((prod, index) => (
           <Todo
@@ -160,8 +256,14 @@ const Form = () => {
             description={prod.description}
             stock={prod.stock}
             price={prod.price}
+            key={prod.id}
+            img={prod.imageId} // Si necesitas mostrar la imagen, asumiendo que tienes la URL o ID
+            id={prod.id}
+            description={prod.description}
+            stock={prod.stock}
+            price={prod.price}
             index={index}
-            deleteTodo={deleteProduct}
+            deleteTodo={deleteById}
           />
         ))}
       </form>

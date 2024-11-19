@@ -1,18 +1,3 @@
-/* Contenedor principal */
-#root {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
 
 /* Contenedor principal */
 #root {
@@ -31,106 +16,76 @@
   margin-top: 100px; /* Espacio para la navbar fija */
 }
 
+/* Estilos de la lista de productos y carrito */
 .product-list,
 .cart {
   width: 48%;
 }
 
-.navbar {
-  width: 100%;
-  min-height: 100px; /* Altura de la navbar */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #000; /* Color negro para la navbar */
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10; /* Asegúrate de que la navbar esté por encima de otros elementos */
-}
-
-/* El resto de tu CSS permanece igual */
-
-
-.navbar-brand {
-  margin: 0;
-  color: white;
-  font-size: 1.8rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-.cart-button-navbar {
-  background: none;
-  border: none;
-  color: white;;
-  cursor: pointer;
-  font-size: 1.2rem;
-  position: relative;
-  outline: none; /* Elimina cualquier borde de enfoque predeterminado */
-  box-shadow: none; /* Elimina cualquier sombra que pueda estar causando el recuadro blanco */
-}
-
-.cart-count {
-  background-color: rgb(243, 63, 63);
-  color: white;
-  font-size: 0.8rem;
-  border-radius: 50%;
-  padding: 3px 6px;
-  position: absolute;
-  top: -10px;
-  right: -10px;
-}
-
-.navbar-links {
-  list-style: none;
-  display: flex;
-  gap: 2.5rem;
-}
-
-.navbar-links li {
-  margin: 0;
-}
-
-.navbar-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.2rem;
-}
-
-.navbar-links a:hover {
-  color: seagreen;
-}
-
-.cart-button-navbar:hover,
-.cart-button-navbar:focus {
-  color: seagreen; 
-  background: none;
-  border: none;
-  outline: none;
-  box-shadow: none; 
-}
-
+/* Estilos generales de títulos */
 h2 {
   color: #333;
   font-size: 2rem;
   margin-bottom: 1.5rem;
 }
 
-/* Contenedor principal */
-#root {
-  width: 100%;
-  margin: 0;
-  padding: 0;
+/* Estilo para la barra lateral de filtros */
+.sidebar {
+  width: 250px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-right: 20px;
 }
 
-.container {
+/* Estilos para los títulos de los filtros */
+.filter-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: black;
+}
+
+/* Botones para desplegar categorías y precios más finos */
+.filter-button {
   display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  margin-top: 100px; /* Espacio para la navbar fija */
+  align-items: center;
+  padding: 3px 5px; /* Botones más finos */
+  margin-bottom: 0px; /* Eliminamos el margen aquí */
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Espaciado adicional entre los grupos de filtros */
+.filter-group {
+  margin-bottom: 30px; /* Ajusta este valor para mayor o menor espacio */
+}
+
+/* Estilos para las opciones desplegables */
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: black;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 8px;
+}
+
+/* Contenido principal */
+.content {
+  flex: 1;
 }

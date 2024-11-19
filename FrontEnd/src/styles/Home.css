@@ -1,0 +1,74 @@
+/* Contenedor principal del carrusel */
+.carousel-container {
+    position: relative;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 1200px; /* Tamaño máximo para el carrusel */
+    height: 40vh; /* 60% del alto del viewport */
+    margin: 0 auto; /* Centrado horizontal */
+    overflow: hidden; /* Esconde contenido desbordado */
+    background-color: #494545; /* Fondo neutro */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+  }
+  
+  /* Imágenes del carrusel */
+  .carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Animación suave */
+  }
+  
+  .carousel-images img {
+    width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+    height: 100%; /* Ajusta la imagen a la altura del contenedor */
+    object-fit: contain; /* Evita el recorte y ajusta la imagen para que siempre sea visible */
+    object-position: center; /* Centra la imagen dentro del contenedor */
+    margin: 0;
+  }
+  
+  /* Indicadores de posición */
+  .carousel-indicators {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+  }
+  
+  .carousel-indicators button {
+    transform: scale(0.5);
+    background: rgba(20, 20, 20, 0.7);
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .carousel-indicators button.active {
+    background: #2a9d8f; /* Color del indicador activo */
+  }
+  
+
+  /* Contenedor del encabezado */
+/* Contenedor del encabezado */
+.home-header {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 80px; /* Reduce la altura si es necesario */
+    background-color: #d2e0df; /* Fondo destacado */
+    margin: 5px auto; /* Espaciado superior reducido */
+    border-radius: 8px; /* Bordes redondeados opcionales */
+    position: relative; /* Permite posicionamiento */
+    top: -50px; /* Mueve hacia arriba */
+    z-index: 1; /* Asegura que esté por encima de otros elementos */
+}
+
+
+/* Estilo del título */
+.home-title {
+    font-size: 2.5rem; /* Tamaño del texto */
+    color: rgb(17, 17, 17); /* Color del texto */
+    font-weight: bold; /* Negrita */
+    margin: 0; /* Sin márgenes adicionales */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra para mejor visibilidad */
+}

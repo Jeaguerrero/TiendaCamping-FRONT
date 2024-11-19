@@ -1,0 +1,42 @@
+.mis-compras {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333; /* Color del texto */
+  }
+  
+  .order-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #f4f4f4; /* Fondo claro */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+  }
+  
+  .order-item p {
+    margin: 5px 0;
+    color: #222; /* Color del texto */
+  }
+  
+  .order-item ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .order-item ul li {
+    margin: 5px 0;
+    color: #555; /* Color más tenue para los items */
+  }
+  
+  h2 {
+    text-align: center;
+    color: #2a9d8f; /* Color llamativo para el título */
+    margin-bottom: 20px;
+  }
+  
+  /* Agrega un hover para destacar los elementos */
+  .order-item:hover {
+    background-color: #e9ecef; /* Cambia el fondo al pasar el mouse */
+    transition: background-color 0.3s ease;
+  }
+  

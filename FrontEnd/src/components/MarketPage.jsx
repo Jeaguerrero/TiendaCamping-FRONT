@@ -1,38 +1,12 @@
-// src/components/MarketPage.jsx
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { CartContext } from './CartManager';
-import './MarketPage.css'; // Import the CSS for this component
+import SearchBar from './productos/SearchBar'; // Importa la SearchBar
+import '../styles/MarketPage.css'; // Importa el CSS para este componente
 
 const MarketPage = () => {
-  const { addToCart } = useContext(CartContext);
-  const [products, setProducts] = useState([]); // Estado para almacenar los productos
+  const { products, addToCart, loading } = useContext(CartContext); // Obtiene productos y addToCart del contexto
   const [quantities, setQuantities] = useState({}); // Mantiene la cantidad seleccionada para cada producto
-  const [loading, setLoading] = useState(true); // Estado de carga
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('http://localhost:4002/products', {
-          method: 'GET',
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("access_token")}`
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Error fetching products'); // Manejo de errores
-        }
-        const data = await response.json();
-        setProducts(data.content); // Asigna la lista de productos al estado
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false); // Cambia el estado de carga
-      }
-    };
-
-    fetchProducts();
-  }, []); // Dependencia vacía para ejecutar solo una vez al montar el componente
+  const [searchQuery, setSearchQuery] = useState(""); // Estado para la búsqueda
 
   const handleQuantityChange = (productId, value) => {
     const newQuantity = parseInt(value, 10) || 1;
@@ -45,7 +19,7 @@ const MarketPage = () => {
     if (quantity > product.stock) {
       alert(`No hay suficiente stock para ${product.description}`);
     } else {
-      addToCart(product, quantity);
+      addToCart(product, quantity); // Actualiza el stock en el contexto global
     }
   };
 
@@ -53,11 +27,17 @@ const MarketPage = () => {
     return <div>Cargando productos...</div>; // Mensaje de carga
   }
 
+  // Filtra los productos según la consulta de búsqueda
+  const filteredProducts = products.filter(product =>
+    product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="market-container">
       <h1>Productos</h1>
+      <SearchBar setSearchQuery={setSearchQuery} /> {/* Implementa la SearchBar aquí */}
       <div className="products-box">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product.id} className="product-item">
             <img src={product.img || 'default-image-url.png'} alt={product.description || 'Product Image'} className="product-image" />
             <div className="product-details">
