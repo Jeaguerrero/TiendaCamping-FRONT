@@ -53,41 +53,43 @@ export const CartManager = ({ children }) => {
       alert(`No hay suficiente stock para ${product.name}. Stock disponible: ${productInStock.stock}`);
       return;
     }
-
+ 
     if (existingProduct) {
       const totalQuantityInCart = existingProduct.quantity + quantity;
-
+ 
       setCartItems(cartItems.map(item =>
         item.id === product.id ? { ...item, quantity: totalQuantityInCart } : item
       ));
     } else {
       setCartItems([...cartItems, { ...product, quantity }]);
     }
-
+ 
     const updatedProducts = products.map(p =>
       p.id === product.id ? { ...p, stock: p.stock - quantity } : p
     );
+    setProducts(updatedProducts); // Actualizamos los productos y el stock
     setProducts(updatedProducts); // Actualizamos los productos y el stock
   };
 
   const clearCart = () => {
     setCartItems([]);
   };
-
+ 
   const removeFromCart = (id) => {
     const removedProduct = cartItems.find(item => item.id === id);
-
+ 
     if (removedProduct) {
       const updatedProducts = products.map(p =>
         p.id === removedProduct.id ? { ...p, stock: p.stock + removedProduct.quantity } : p
       );
       setProducts(updatedProducts);
-
+ 
       setCartItems(cartItems.filter(item => item.id !== id));
     }
   };
-
+ 
   return (
+    <CartContext.Provider value={{ cartItems, products, addToCart, removeFromCart, clearCart, loading, error }}>
     <CartContext.Provider value={{ cartItems, products, addToCart, removeFromCart, clearCart, loading, error }}>
       {children}
     </CartContext.Provider>

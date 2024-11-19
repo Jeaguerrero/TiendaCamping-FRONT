@@ -5,11 +5,13 @@ const Form = () => {
   const [product, setProduct] = useState({
     description: "",
     categoryId: "",
+    categoryId: "",
     stock: "",
     price: "",
     imageId: "", // Para almacenar el ID de la imagen
+    imageId: "", // Para almacenar el ID de la imagen
   });
-
+ 
   const [products, setProducts] = useState([]);
   const [imageFile, setImageFile] = useState(null); // Archivo de imagen seleccionado
   const [searchId, setSearchId] = useState(""); // Estado para buscar producto por ID
@@ -139,10 +141,11 @@ const Form = () => {
       [name]: value,
     });
   };
-
+ 
   return (
     <>
       <form onSubmit={(e) => e.preventDefault()}>
+        <h2>Agregar Producto</h2>
         <h2>Agregar Producto</h2>
         <label>Nombre del Producto</label> <br />
         <input
@@ -151,15 +154,17 @@ const Form = () => {
           value={product.description}
           onChange={handleChange}
         /> <br />
-
+ 
         <label>ID Categoría</label> <br />
         <input
           type="text"
           name="categoryId"
           value={product.categoryId}
+          name="categoryId"
+          value={product.categoryId}
           onChange={handleChange}
         /> <br />
-
+ 
         <label>Stock</label> <br />
         <input
           type="number"
@@ -167,7 +172,7 @@ const Form = () => {
           value={product.stock}
           onChange={handleChange}
         /> <br />
-
+ 
         <label>Precio</label> <br />
         <input
           type="number"
@@ -251,6 +256,12 @@ const Form = () => {
             description={prod.description}
             stock={prod.stock}
             price={prod.price}
+            key={prod.id}
+            img={prod.imageId} // Si necesitas mostrar la imagen, asumiendo que tienes la URL o ID
+            id={prod.id}
+            description={prod.description}
+            stock={prod.stock}
+            price={prod.price}
             index={index}
             deleteTodo={deleteById}
           />
@@ -259,5 +270,5 @@ const Form = () => {
     </>
   );
 };
-
+ 
 export default Form;
