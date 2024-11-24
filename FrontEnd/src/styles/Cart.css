@@ -5,7 +5,7 @@
     right: -100%; /* Fuera de la pantalla cuando está cerrado */
     width: 400px;
     height: 100%;
-    background-color: grey;
+    background-color: rgb(241, 235, 235); ;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-in-out; /* Transición suave al abrir/cerrar */
     z-index: 1000;
@@ -48,7 +48,7 @@
   margin-right: 5px; /* Espacio entre botones */
   border: none;
   border-radius: 4px;
-  background-color: seagreen;
+  background-color: #222a31;
   transition: background-color 0.3s ease;
 }
 
@@ -63,15 +63,15 @@
   margin-top: 1rem;
   overflow-y: auto;
   height: calc(100% - 50px);
-  background-color: #c5f8c6; 
+  background-color: rgb(241, 235, 235); 
 }
 
 .close-button {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
-  background-color: #ffffff;
+  color: #222222;
 }
 
 .coupon-section {
@@ -105,7 +105,7 @@
 
 /* Estilo del botón de compra */
 .checkout-button {
-  background-color: seagreen;
+  background-color: #222a31;
   color: white;
   border: none;
   padding: 10px 20px;
