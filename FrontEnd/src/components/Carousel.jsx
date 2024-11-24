@@ -3,8 +3,9 @@ import "../styles/Home.css";
 
 const Carousel = () => {
   const images = [
-    "/images/OFERTA10.png",
-    "/images/OFERTA20.png",
+    "/images/OFERTA10.jpeg",
+    "/images/OFERTA20.jpeg",
+    "/images/Stock.jpg",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

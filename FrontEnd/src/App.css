@@ -1,5 +1,78 @@
+/* VARIABLES GLOBALES */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 
-/* Contenedor principal */
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #538e7b; /* Fondo */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* RESET BÁSICO */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #538e7b, #1c302d); 
+  color: var(--color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* TIPOGRAFÍA GLOBAL */
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+h2 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+a {
+  font-weight: 500;
+  color: #1c302d;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #1c302d;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: inherit;
+  background-color: #222a31;
+  color: white;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+/* CONTENEDORES PRINCIPALES */
 #root {
   width: 100%;
   margin: 0;
@@ -16,76 +89,6 @@
   margin-top: 100px; /* Espacio para la navbar fija */
 }
 
-/* Estilos de la lista de productos y carrito */
-.product-list,
-.cart {
-  width: 48%;
-}
-
-/* Estilos generales de títulos */
-h2 {
-  color: #333;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-/* Estilo para la barra lateral de filtros */
-.sidebar {
-  width: 250px;
-  background-color: #f0f0f0;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-right: 20px;
-}
-
-/* Estilos para los títulos de los filtros */
-.filter-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: black;
-}
-
-/* Botones para desplegar categorías y precios más finos */
-.filter-button {
-  display: flex;
-  align-items: center;
-  padding: 3px 5px; /* Botones más finos */
-  margin-bottom: 0px; /* Eliminamos el margen aquí */
-  font-size: 14px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #333;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-}
-
-.filter-button:hover {
-  background-color: #e0e0e0;
-}
-
-/* Espaciado adicional entre los grupos de filtros */
-.filter-group {
-  margin-bottom: 30px; /* Ajusta este valor para mayor o menor espacio */
-}
-
-/* Estilos para las opciones desplegables */
-.filter-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: black;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-  margin-right: 8px;
-}
-
-/* Contenido principal */
 .content {
   flex: 1;
 }

@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import Todo from "./Todo"; // Assuming this is the component for rendering products
+import "../../styles/form.css";
+
 
 const Form = () => {
   const [product, setProduct] = useState({
@@ -131,7 +133,7 @@ const Form = () => {
   return (
     <>
       <form onSubmit={(e) => e.preventDefault()}>
-        <h2>Agregar Producto</h2>
+        <h1>Agregar Producto</h1>
         <label>Nombre del Producto</label>
         <input
           type="text"
@@ -181,7 +183,7 @@ const Form = () => {
           Agregar Producto
         </button>
 
-        <h2>Buscar Producto por ID</h2>
+ {/*     <h2>Buscar Producto por ID</h2>
         <input
           type="text"
           placeholder="Buscar por ID"
@@ -191,7 +193,7 @@ const Form = () => {
         <button type="button" onClick={searchProduct}>
           Buscar
         </button>
-
+ */}  
         {editingProduct && (
           <>
             <h3>Editando Producto ID: {editingProduct.id}</h3>

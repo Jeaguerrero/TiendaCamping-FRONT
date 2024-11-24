@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import "../styles/Ventas.css"; // Estilos opcionales
+import { useTable, useSortBy, useFilters } from "react-table";
+import "../styles/Ventas.css";
 
 const Ventas = () => {
   const [ventas, setVentas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Función para formatear la fecha
+  const formatDate = (date) => {
+    const parsedDate = new Date(date + "T00:00:00");
+    return parsedDate.toLocaleDateString("es-AR", { timeZone: "America/Argentina/Buenos_Aires" });
+  };
+
+  // Fetch de las ventas
   useEffect(() => {
     const fetchVentas = async () => {
       try {
@@ -33,47 +41,143 @@ const Ventas = () => {
     fetchVentas();
   }, []);
 
-  if (loading) {
-    return <p>Cargando ventas...</p>;
-  }
+  // Columnas de la tabla
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Usuario",
+        accessor: "user.email",
+        Filter: TextFilter,
+      },
+      {
+        Header: "Fecha",
+        accessor: (row) => formatDate(row.date),
+        id: "date",
+        Filter: TextFilter,
+      },
+      {
+        Header: "Productos",
+        accessor: (row) =>
+          row.orderItems
+            .map(
+              (item) =>
+                `${item.product.description} (Cantidad: ${item.quantity})`
+            )
+            .join(", "),
+        id: "products",
+        Filter: TextFilter,
+      },
+      {
+        Header: "Total Sin Desc",
+        accessor: (row) => row.finalPrice.toFixed(2),
+        id: "finalPrice",
+        Filter: NumberFilter,
+      },
+      {
+        Header: "Descuento",
+        accessor: (row) =>
+          row.finalPriceWithDiscount
+            ? (row.finalPrice - row.finalPriceWithDiscount).toFixed(2)
+            : "0.00",
+        id: "discount",
+        Filter: NumberFilter,
+      },
+      {
+        Header: "Total Con Desc",
+        accessor: (row) =>
+          row.finalPriceWithDiscount
+            ? row.finalPriceWithDiscount.toFixed(2)
+            : row.finalPrice.toFixed(2),
+        id: "finalPriceWithDiscount",
+        Filter: NumberFilter,
+      },
+    ],
+    []
+  );
 
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable(
+    {
+      columns,
+      data: ventas,
+      initialState: { sortBy: [{ id: "date", desc: false }] },
+    },
+    useFilters,
+    useSortBy
+  );
+
+  // Loading y errores
+  if (loading) return <p>Cargando ventas...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="ventas-container">
       <h2>Listado de Ventas</h2>
-      {ventas.length > 0 ? (
-        <ul className="ventas-list">
-          {ventas.map((order) => (
-            <li key={order.id} className="ventas-item">
-              <div className="venta-header">
-                <p>
-                  <strong>Usuario:</strong> {order.user.email}
-                </p>
-                <p>
-                  <strong>Fecha:</strong> {new Date(order.date).toLocaleDateString()}
-                </p>
-                <p>
-                  <strong>Total con descuento:</strong> ${order.finalPriceWithDiscount?.toFixed(2) || order.finalPrice.toFixed(2)}
-                </p>
-              </div>
-              <ul className="venta-items">
-                {order.orderItems.map((item) => (
-                  <li key={item.id}>
-                    Producto: {item.product.description} - Cantidad: {item.quantity} - Precio: ${item.finalPrice.toFixed(2)}
-                  </li>
-                ))}
-              </ul>
-            </li>
+      <table {...getTableProps()} className="ventas-table">
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
+                  </span>
+                  <div>{column.canFilter ? column.render("Filter") : null}</div>
+                </th>
+              ))}
+            </tr>
           ))}
-        </ul>
-      ) : (
-        <p>No se encontraron ventas registradas.</p>
-      )}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
+
+// Componente de filtro para texto
+function TextFilter({ column: { filterValue, setFilter } }) {
+  return (
+    <input
+      value={filterValue || ""}
+      onChange={(e) => setFilter(e.target.value || undefined)}
+      placeholder="Buscar..."
+      style={{ width: "100%" }}
+    />
+  );
+}
+
+// Componente de filtro para números
+function NumberFilter({ column: { filterValue, setFilter } }) {
+  return (
+    <input
+      type="number"
+      value={filterValue || ""}
+      onChange={(e) => setFilter(e.target.value || undefined)}
+      placeholder="Filtrar..."
+      style={{ width: "100%" }}
+    />
+  );
+}
 
 export default Ventas;

@@ -1,0 +1,58 @@
+.footer {
+  display: flex;
+  justify-content: space-between; /* Espacio entre las secciones */
+  align-items: flex-start;
+  background-color: #f5f5f5;
+  color: #1c302d;
+  padding: 20px 40px;
+  border-top: 1px solid #ddd;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  box-sizing: border-box; /* Incluye padding en el ancho */
+}
+
+.footer-section {
+  flex: 1;
+  margin: 0 15px;
+}
+
+.footer-section:nth-child(2) { /* Segunda sección (Redes Sociales) */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido horizontalmente */
+}
+
+.footer-section:nth-child(3) { /* Tercera sección (Horarios de Atención) */
+  text-align: right; /* Alinea el texto a la derecha */
+}
+
+.footer-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #1c302d;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons img {
+  width: 40px; /* Tamaño ajustado de los íconos */
+  height: 40px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}

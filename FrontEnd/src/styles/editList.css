@@ -1,130 +1,142 @@
-/* General styling for the editList container */
+/* Contenedor principal */
 .editList {
-    width: 90%;
-    margin: 20px auto;
+    width: 50%;
+    margin: 120px auto;
     padding: 20px;
-    border: 1px solid #e3e3e3;
     border-radius: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
+    background-color: rgba(197, 196, 196, 0.4); /* Fondo blanco con transparencia */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
   }
   
-  /* Header for the list */
+  /* Título */
   .editList h2 {
-    font-size: 28px;
-    color: #222222;
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: bold;
+    font-size: 2.5rem; /* Tamaño de fuente grande */
+    color: #1c302d; /* Color oscuro profesional */
+    text-align: center; /* Centrado */
+    margin-bottom: 20px; /* Espaciado inferior */
+    font-weight: bold; /* Fuente negrita */
+    letter-spacing: 2px; /* Espaciado entre letras */
+    border-bottom: 2px solid #1c302d; /* Línea inferior */
+    padding-bottom: 10px; /* Espaciado debajo del texto */
   }
   
-  /* List container */
+  /* Lista de productos */
   .editList ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
-  /* Each list item */
-  .editList li {
+  /* Cada producto */
+  .productItem {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 20px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background-color 0.2s;
+    border-bottom: 1px solid #e5e5e5;
+    gap: 20px;
+    transition: background-color 0.3s ease;
   }
   
-  /* Hover effect for list items */
-  .editList li:hover {
-    background-color: #f9f9f9;
-  }
-  
-  /* Last item border removal */
-  .editList li:last-child {
+  .productItem:last-child {
     border-bottom: none;
   }
   
-  /* Product description */
-  .editList .productDescription {
-    flex: 2;
-    font-size: 18px;
-    color: #333333;
-    font-weight: 500;
+  /* Imagen del producto */
+  .productImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: contain;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 1); /* Fondo blanco con transparencia */
   }
   
-  /* Product price and stock */
-  .editList .productPrice {
-    flex: 1;
+  /* Texto alternativo para imágenes no disponibles */
+  .noImage {
+    font-size: 14px;
+    color: #888888;
+    font-style: italic;
+  }
+  
+  /* Detalles del producto */
+  .productDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 2;
+    font-size: 16px;
+    color: #333333;
+  }
+  
+  .productDescription {
     font-size: 18px;
-    color: #00a859;
-    text-align: center;
     font-weight: bold;
   }
   
-  .editList .productStock {
-    flex: 1;
+  .productPrice {
     font-size: 16px;
-    color: #888888;
-    text-align: center;
+    color: #1c302d; /* Verde */
+    font-weight: bold;
   }
   
-  /* Edit button */
-  .editList .editButton {
-    padding: 10px 15px;
+  .productStock,
+  .productCategory {
+    font-size: 16px;
+    color: #1c302d; /* Gris */
+  }
+  
+  /* Botones */
+  .buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .editButton,
+  .deleteButton {
+    padding: 10px;
     font-size: 14px;
-    color: #ffffff;
-    background-color: #007bff;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s;
+    width: 120px;
   }
   
-  .editList .editButton:hover {
+  .editButton {
+    background-color: #007bff; /* Azul */
+  }
+  
+  .editButton:hover {
     background-color: #0056b3;
     transform: scale(1.05);
   }
   
-  /* Delete button */
-  .editList .deleteButton {
-    padding: 10px 15px;
-    font-size: 14px;
-    color: #ffffff;
-    background-color: #ff4d4d;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    font-weight: bold;
+  .deleteButton {
+    background-color: #dc3545; /* Rojo */
   }
   
-  .editList .deleteButton:hover {
-    background-color: #cc0000;
+  .deleteButton:hover {
+    background-color: #c82333;
     transform: scale(1.05);
   }
   
-  /* Responsive design */
+  /* Responsivo */
   @media (max-width: 768px) {
-    .editList li {
-        flex-direction: column;
-        align-items: flex-start;
+    .productItem {
+      flex-direction: column;
+      align-items: flex-start;
     }
   
-    .editList .productDescription {
-        margin-bottom: 10px;
+    .buttonsContainer {
+      flex-direction: row;
+      gap: 10px;
     }
   
-    .editList .productPrice,
-    .editList .productStock {
-        text-align: left;
-    }
-  
-    .editList .editButton,
-    .editList .deleteButton {
-        width: 100%;
-        margin-top: 10px;
+    .editButton,
+    .deleteButton {
+      width: 48%;
     }
   }
+  
