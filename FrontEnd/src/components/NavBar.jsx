@@ -6,6 +6,9 @@ import { CartContext } from "./CartManager";
 import jwt_decode from "jwt-decode";
 import "../styles/Navbar.css";
 
+// Si usas una imagen desde `src/assets/images`
+// import logo from "../assets/images/logo.png";
+
 const Navbar = ({ toggleCart }) => {
   const { cartItems } = useContext(CartContext);
   const [menuVisible, setMenuVisible] = useState(false); // Estado para mostrar/ocultar el menú
@@ -65,7 +68,14 @@ const Navbar = ({ toggleCart }) => {
 
   return (
     <nav className="navbar">
-      <h2 className="navbar-brand">Camping Marketplace</h2>
+      {/* Logo en lugar del título */}
+      <Link to="/" className="navbar-brand">
+        {/* Si la imagen está en `public` */}
+        <img src="/images/Logo4.png" alt="Camping Marketplace Logo" className="navbar-logo" />
+        
+        {/* Si la imagen está en `src/assets/images` */}
+        {/* <img src={logo} alt="Camping Marketplace Logo" className="navbar-logo" /> */}
+      </Link>
       <ul className="navbar-links">
         <li>
           <Link to="/">Inicio</Link>

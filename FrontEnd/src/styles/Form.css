@@ -1,41 +1,91 @@
-.form{
+/* Formulario principal */
+form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    gap: 1rem;
+    background-color: rgba(197, 196, 196, 0.4); /* Gris con 80% de opacidad */
+    padding: 30px;
+    margin: 190px auto;
+    max-width: 1000px; /* Ancho máximo */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    gap: 1.5rem; /* Espaciado entre los elementos */
 }
-
-input{
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid #000;
-    width: 100%;
-}
-
-button{
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid #000;
-    width: 100%;
-    background-color: #000;
-    color: #fff;
+  
+  /* Inputs del formulario */
+  form input[type="text"],
+  form input[type="number"],
+  form input[type="file"] {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 10px; /* Espaciado inferior */
+  }
+  
+  /* Botones del formulario */
+  form button {
+    padding: 10px;
+    background-color: #1c302d; /* Azul */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
     cursor: pointer;
-}
-
-button:hover{
-    background-color: #fff;
-    color: #000;
-}
-
-title{
+    transition: background-color 0.3s ease;
+    width: 80%;
+    min-width: 400px;
+    
+  }
+  
+  form button:hover {
+    background-color: #1c302d; /* Azul más oscuro */
+  }
+  
+  /* Secciones del formulario */
+  form h2,
+  form h3 {
     text-align: center;
+    color: #fffdfd;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+
+  form h1 {
+    font-size: 2.5rem; /* Tamaño de fuente grande */
+    color: #1c302d; /* Color oscuro profesional */
+    text-align: center; /* Centrado */
+    margin-bottom: 20px; /* Espaciado inferior */
+    font-weight: bold; /* Fuente negrita */
+    letter-spacing: 2px; /* Espaciado entre letras */
+    border-bottom: 2px solid #1c302d; /* Línea inferior */
+    padding-bottom: 10px; /* Espaciado debajo del texto */
+  }
+
+
+  form label {
+    font-size: 20px; /* Tamaño de fuente para las etiquetas */
+    color: #ffffff; /* Blanco para destacar en el fondo gris */
+    display: block; /* Asegura que las etiquetas ocupen toda la línea */
 }
 
+form h2,
+form h3 {
+    text-align: center;
+    color: #dbe4e2; /* Blanco para destacar sobre el fondo gris */
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 36px; /* Tamaño más grande para títulos */
+}
 
-
-
-
-
+/* Estilos para imágenes */
+form img {
+    display: block; /* Hace que la imagen sea un elemento en bloque */
+    margin: 10px auto; /* Centra la imagen horizontalmente */
+    max-width: 200px; /* Ancho máximo */
+    height: auto; /* Mantiene la proporción */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra alrededor de la imagen */
+    border: 2px solid #ccc; /* Borde gris */
+}
