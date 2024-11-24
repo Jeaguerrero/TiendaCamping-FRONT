@@ -100,8 +100,13 @@ const Navbar = ({ toggleCart }) => {
                   {userRole === "ADMIN" && (
                     <>
                       <li onClick={closeMenu}>
-                        <Link to="/productos/cargar" className="dropdown-item">
+                        <Link to="/agregar" className="dropdown-item">
                           Cargar Productos
+                        </Link>
+                      </li>
+                      <li onClick={closeMenu}>
+                        <Link to="/edit" className="dropdown-item">
+                          Editar Productos
                         </Link>
                       </li>
                       <li onClick={closeMenu}>

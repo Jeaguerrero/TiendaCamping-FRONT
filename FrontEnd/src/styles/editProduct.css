@@ -1,0 +1,106 @@
+/* General container for the edit product form */
+.editProduct {
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Product box styling */
+  .productBox {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 450px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e3e3e3;
+  }
+  
+  /* Heading inside the product box */
+  .productBox h3 {
+    text-align: center;
+    font-size: 28px;
+    color: #333333;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  /* Product details container */
+  .productDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Add consistent spacing between fields */
+  }
+  
+  /* Individual input group */
+  .productDetails div {
+    margin-bottom: 10px;
+  }
+  
+  /* Input fields */
+  input {
+    padding: 12px;
+    margin-top: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  /* Input focus effect */
+  input:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  
+  /* General button styling */
+  button {
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  /* Hover effect for buttons */
+  button:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
+  }
+  
+  /* Delete button styling */
+  .deleteButton {
+    background-color: #dc3545;
+  }
+  
+  .deleteButton:hover {
+    background-color: #c82333;
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 768px) {
+    .productBox {
+        padding: 20px;
+        width: 90%;
+    }
+  
+    button {
+        font-size: 14px;
+    }
+  
+    input {
+        font-size: 14px;
+    }
+  }

@@ -13,6 +13,8 @@ import ProductList from './components/MarketPage';
 import UserOrders from "./components/UserOrders"; 
 import Home from './components/Home';
 import Ventas from "./components/Ventas";
+import EditList from './components/editList';
+import EditProduct from './components/editProduct';
 
 
 
@@ -37,6 +39,8 @@ function App() {
         <Route path="/register" element={<Register />} />
          <Route path="/mis-compras" element={<UserOrders />} />
          <Route path="/ventas" element={<Ventas />} />
+         <Route path="/edit" element={<EditList />} />
+         <Route path="/edit/:productId" element={<EditProduct />} />
 
 
       </Routes>

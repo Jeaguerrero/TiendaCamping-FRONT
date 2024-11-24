@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #000; /* Color negro para la navbar */
+  background-color: #1c302d; /* Color negro para la navbar */
   position: fixed;
   top: 0;
   left: 0;
@@ -59,12 +59,12 @@
 }
 
 .navbar-links a:hover {
-  color: seagreen;
+  color: #82ddcf;
 }
 
 .cart-button-navbar:hover,
 .cart-button-navbar:focus {
-  color: seagreen;
+  color: #82ddcf;
   background: none;
   border: none;
   outline: none;

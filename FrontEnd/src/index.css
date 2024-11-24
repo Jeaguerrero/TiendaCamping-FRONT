@@ -35,7 +35,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background: seagreen;
+  background: #538e7b;
 }
 
 h1 {
@@ -50,7 +50,7 @@ button {
   font-size: 1em;
   font-weight: 400;
   font-family: inherit;
-  background-color: black;
+  background-color: #222a31;
   cursor: pointer;
   transition: border-color 0.25s;
 }

@@ -1,0 +1,130 @@
+/* General styling for the editList container */
+.editList {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Header for the list */
+  .editList h2 {
+    font-size: 28px;
+    color: #222222;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  
+  /* List container */
+  .editList ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Each list item */
+  .editList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+  }
+  
+  /* Hover effect for list items */
+  .editList li:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Last item border removal */
+  .editList li:last-child {
+    border-bottom: none;
+  }
+  
+  /* Product description */
+  .editList .productDescription {
+    flex: 2;
+    font-size: 18px;
+    color: #333333;
+    font-weight: 500;
+  }
+  
+  /* Product price and stock */
+  .editList .productPrice {
+    flex: 1;
+    font-size: 18px;
+    color: #00a859;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .editList .productStock {
+    flex: 1;
+    font-size: 16px;
+    color: #888888;
+    text-align: center;
+  }
+  
+  /* Edit button */
+  .editList .editButton {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
+  }
+  
+  .editList .editButton:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* Delete button */
+  .editList .deleteButton {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
+  }
+  
+  .editList .deleteButton:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .editList li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+  
+    .editList .productDescription {
+        margin-bottom: 10px;
+    }
+  
+    .editList .productPrice,
+    .editList .productStock {
+        text-align: left;
+    }
+  
+    .editList .editButton,
+    .editList .deleteButton {
+        width: 100%;
+        margin-top: 10px;
+    }
+  }
