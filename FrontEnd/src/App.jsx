@@ -15,6 +15,8 @@ import Home from './components/Home';
 import Ventas from "./components/Ventas";
 import EditList from './components/editList';
 import EditProduct from './components/editProduct';
+import { store } from './Redux/store';
+import { Provider } from 'react-redux';
 
 
 
@@ -26,7 +28,7 @@ function App() {
   };
 
   return (
-    <AppProvider>
+    <Provider store ={store}>
     <CartManager>
       {/* El Router ya está en main.jsx, aquí solo definimos las rutas */}
       <Navbar toggleCart={toggleCart} />
@@ -41,13 +43,12 @@ function App() {
          <Route path="/ventas" element={<Ventas />} />
          <Route path="/edit" element={<EditList />} />
          <Route path="/edit/:productId" element={<EditProduct />} />
-
-
       </Routes>
       <Cart isOpen={isCartOpen} toggleCart={toggleCart} />
     </CartManager>
-    </AppProvider>
+    </Provider>
   );
+  
 }
 
 export default App;

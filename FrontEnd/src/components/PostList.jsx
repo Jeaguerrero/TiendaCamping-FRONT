@@ -1,19 +1,17 @@
-import { useEffect, useState } from "react";
+import { fetchPosts } from "../Redux/postSlice";
 import PostCard from "./PostCard";
+import { useDispatch, useSelector } from 'react-redux';
 
 const PostList = () => {
-  const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch()
+  const { items: posts, loading, error} = useSelector((state) => state.posts)
 
-  useEffect(()=>{
-    fetch('https://jsonplaceholder.typicode.com/posts') //localhost:8080/products API backend
-    .then((response) => response.json())
-    .then((data) => {
-        setPosts(data) //Actualizamos el estado con los datos obtenidos
-    })
-    .catch((error) => {
-        console.error('Error al obtener los datos:', error)
-    })
-  }, [])
+  useEffect(()=> (
+    dispatch(fetchPosts())
+  ), [dispatch])
+
+  if (loading) return <p>Cargando publicaciones...</p>
+  if (error) return <p>Error al cargar las publicaciones: {error}</p>
 
   return (
     <>

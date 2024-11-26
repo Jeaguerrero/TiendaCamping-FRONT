@@ -1,73 +1,38 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../Redux/productSlice';
+import { fetchImages } from '../Redux/imageSlice'; 
 import { CartContext } from './CartManager';
 import SearchBar from './productos/SearchBar';
 import '../styles/MarketPage.css'; // Import the CSS file
 
 const MarketPage = () => {
-  const { addToCart } = useContext(CartContext);
-  const [products, setProducts] = useState([]);
-  const [images, setImages] = useState({});
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector((state) => state.products);
+  const { items: images, imageLoading, imageError } = useSelector((state) => state.images);
   const [quantities, setQuantities] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('http://localhost:4002/products', {
-          method: 'GET',
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("access_token")}`
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Error fetching products');
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (products && products.length > 0) {
+      products.forEach((product) => {
+        if (product.imageId) {
+          dispatch(fetchImages(product.imageId));
         }
-        const data = await response.json();
-        setProducts(data.content);
-        await fetchProductImages(data.content);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  const fetchProductImages = async (products) => {
-    const imagePromises = products.map(async (product) => {
-      if (product.imageID) {
-        try {
-          const imageResponse = await fetch(`http://localhost:4002/images/${product.imageID}`, {
-            method: 'GET',
-            headers: {
-              "Authorization": `Bearer ${localStorage.getItem("access_token")}`
-            }
-          });
-          if (imageResponse.ok) {
-            const imageData = await imageResponse.json();
-            return { [product.id]: `data:image/jpeg;base64,${imageData.file}` };
-          } else {
-            return { [product.id]: null };
-          }
-        } catch (error) {
-          return { [product.id]: null };
-        }
-      }
-      return { [product.id]: null };
-    });
-
-    const imagesData = await Promise.all(imagePromises);
-    const imagesMap = imagesData.reduce((acc, curr) => ({ ...acc, ...curr }), {});
-    setImages(imagesMap);
-  };
+      });
+    }
+  }, [dispatch, products]);
 
   const handleQuantityChange = (productId, value) => {
-    const newQuantity = parseInt(value, 10) || 1;
-    setQuantities({ ...quantities, [productId]: newQuantity });
+    setQuantities((prev) => ({
+      ...prev,
+      [productId]: Math.max(1, Math.min(value, products.find((p) => p.id === productId)?.stock || 1)),
+    }));
   };
 
   const handleAddToCart = (product) => {
@@ -80,44 +45,52 @@ const MarketPage = () => {
     }
   };
 
-  if (loading) {
+  if (loading || imageLoading) {
     return <div>Cargando productos...</div>;
   }
 
-  const filteredProducts = products.filter(product =>
-    product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  if (error || imageError) {
+    return <div>Error al cargar los productos o imágenes.</div>;
+  }
 
   return (
     <div className="market-container">
       <h1>Productos</h1>
       <SearchBar setSearchQuery={setSearchQuery} />
       <div className="products-box">
-        {filteredProducts.map((product) => (
-          <div key={product.id} className="product-item">
-            <img 
-              src={images[product.id] || 'default-image-url.png'} 
-              alt={product.description || 'Product Image'} 
-              className="product-image" 
-            />
-            <div className="product-details">
-              <p className="product-name">{product.description || 'Sin descripción'}</p>
-              <p className="product-price">Precio: ${product.price.toFixed(2)}</p>
-              <p>Stock disponible: {product.stock}</p>
-              <input
-                type="number"
-                min="1"
-                max={product.stock}
-                value={quantities[product.id] || 1}
-                onChange={(e) => handleQuantityChange(product.id, e.target.value)}
-                className="quantity-input"
+        {products
+          .filter((product) =>
+            product.description?.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+          .map((product) => (
+            <div key={product.id} className="product-item">
+              <img
+                src={`data:image/jpeg;base64,${images?.[product.imageId] || ''}`}
+                alt={product.description || 'Producto sin descripción'}
+                className="product-image"
               />
-              <button onClick={() => handleAddToCart(product)} className="add-to-cart-button">
-                Agregar al carrito
-              </button>
+              <div className="product-details">
+                <p className="product-name">{product.description || 'Sin descripción'}</p>
+                <p className="product-price">Precio: ${product.price?.toFixed(2) || '0.00'}</p>
+                <p>Stock disponible: {product.stock || 0}</p>
+                <input
+                  type="number"
+                  min="1"
+                  max={product.stock || 1}
+                  value={quantities[product.id] || 1}
+                  onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value, 10))}
+                  className="quantity-input"
+                />
+                <button
+                  onClick={() => handleAddToCart(product)}
+                  className="add-to-cart-button"
+                  disabled={product.stock <= 0}
+                >
+                  Agregar al carrito
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

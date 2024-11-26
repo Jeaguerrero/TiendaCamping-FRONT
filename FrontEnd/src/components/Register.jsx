@@ -1,49 +1,31 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../Redux/accountManagment/registerSlice';
 
 const Register = () => {
-    const [nombre, setNombre] = useState("");
-    const [apellido, setApellido] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [rol, setRol] = useState("USER"); // Rol predeterminado: USER
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(false);
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rol, setRol] = useState('USER'); // Default role: USER
 
-    const handleSubmit = async (e) => {
+    const dispatch = useDispatch();
+    const { authToken, loading, error } = useSelector((state) => state.auth); // Access Redux state
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Preparar los datos del usuario para enviar al backend
+        // Prepare user data for the backend
         const userData = {
-            firstName: nombre,  
-            lastName: apellido, 
+            firstname: nombre,
+            lastname: apellido,
             email,
             password,
-            role: rol,         
+            role: rol,
         };
 
-        try {
-            // Hacer la llamada a la API del backend
-            const response = await fetch("http://localhost:4002/api/v1/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json", // Indicar que enviamos JSON
-                },
-                body: JSON.stringify(userData), // Convertir los datos a JSON
-            });
-
-            if (!response.ok) {
-                const errorData = await response.text(); // Obtener el mensaje de error como texto
-                throw new Error(errorData);
-            }
-
-            // Si la respuesta es exitosa
-            setSuccess(true);
-            alert(`Usuario ${nombre} ${apellido} registrado con éxito como ${rol}!`);
-            // Aquí podrías redirigir al usuario a otra página o limpiar el formulario
-        } catch (err) {
-            console.error("Error durante el registro:", err);
-            setError(err.message);
-        }
+        // Dispatch the register action
+        dispatch(register(userData));
     };
 
     return (
@@ -51,7 +33,7 @@ const Register = () => {
             <form className="form" onSubmit={handleSubmit}>
                 <h1>Crear cuenta</h1>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
-                {success && <p style={{ color: 'green' }}>¡Registro exitoso!</p>}
+                {authToken && <p style={{ color: 'green' }}>¡Registro exitoso!</p>}
                 <div className="input-box">
                     <input
                         type="text"
@@ -100,7 +82,9 @@ const Register = () => {
                         <option value="ADMIN">ADMIN</option>
                     </select>
                 </div>
-                <button type="submit">Registrarse</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Registrando...' : 'Registrarse'}
+                </button>
             </form>
         </div>
     );
