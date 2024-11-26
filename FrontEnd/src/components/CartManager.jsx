@@ -1,97 +1,83 @@
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts, addToCart, removeFromCart, clearCart } from '../Redux/productSlice'; // Make sure you import your redux actions
 
-export const CartContext = createContext();
-export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]); // Estado inicial vacío
-
-  return (
-    <CartContext.Provider value={{ cartItems, setCartItems }}>
-      {children}
-    </CartContext.Provider>
-  );
-};
-
-export const CartManager = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]); 
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const CartManager = () => {
+  const dispatch = useDispatch();
+  const { cartItems, products, loading, error } = useSelector((state) => state.products); // Assuming cartItems are stored here
+  const { products: productList, loading: productLoading, error: productError } = useSelector((state) => state.products);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const token = localStorage.getItem('access_token');
-        const response = await fetch('http://localhost:4002/products', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
+    dispatch(fetchProducts()); // Fetch products on load
+  }, [dispatch]);
 
-        if (!response.ok) {
-          throw new Error('Error al cargar los productos');
-        }
-
-        const data = await response.json();
-        setProducts(data.content);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  const addToCart = (product, quantity) => {
+  const handleAddToCart = (product, quantity) => {
     const existingProduct = cartItems.find(item => item.id === product.id);
-    const productInStock = products.find(item => item.id === product.id); 
+    const productInStock = productList.find(item => item.id === product.id);
 
     if (quantity > productInStock.stock) {
-      alert(`No hay suficiente stock para ${product.name}. Stock disponible: ${productInStock.stock}`);
+      alert(`Not enough stock for ${product.name}. Available stock: ${productInStock.stock}`);
       return;
     }
- 
+
     if (existingProduct) {
       const totalQuantityInCart = existingProduct.quantity + quantity;
- 
-      setCartItems(cartItems.map(item =>
-        item.id === product.id ? { ...item, quantity: totalQuantityInCart } : item
-      ));
+      dispatch(addToCart({ product, quantity: totalQuantityInCart }));
     } else {
-      setCartItems([...cartItems, { ...product, quantity }]);
+      dispatch(addToCart({ product, quantity }));
     }
- 
-    const updatedProducts = products.map(p =>
+
+    const updatedProducts = productList.map(p =>
       p.id === product.id ? { ...p, stock: p.stock - quantity } : p
     );
-    setProducts(updatedProducts); // Actualizamos los productos y el stock
-    setProducts(updatedProducts); // Actualizamos los productos y el stock
+    dispatch(updateProducts(updatedProducts)); // Update products with new stock
   };
 
-  const clearCart = () => {
-    setCartItems([]);
-  };
- 
-  const removeFromCart = (id) => {
+  const handleRemoveFromCart = (id) => {
     const removedProduct = cartItems.find(item => item.id === id);
- 
     if (removedProduct) {
-      const updatedProducts = products.map(p =>
+      const updatedProducts = productList.map(p =>
         p.id === removedProduct.id ? { ...p, stock: p.stock + removedProduct.quantity } : p
       );
-      setProducts(updatedProducts);
- 
-      setCartItems(cartItems.filter(item => item.id !== id));
+      dispatch(updateProducts(updatedProducts)); // Update products with stock increase
+      dispatch(removeFromCart(id)); // Remove from cart
     }
   };
- 
-  return (
-    <CartContext.Provider value={{ cartItems, products, addToCart, removeFromCart, clearCart, loading, error }}>
 
-      {children}
-    </CartContext.Provider>
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
+
+  return (
+    <div>
+      {loading || productLoading ? (
+        <div>Loading...</div>
+      ) : error || productError ? (
+        <div>Error: {error || productError}</div>
+      ) : (
+        <div>
+          <h1>Cart</h1>
+          {cartItems.map(item => (
+            <div key={item.id}>
+              <h3>{item.name}</h3>
+              <p>Quantity: {item.quantity}</p>
+              <button onClick={() => handleRemoveFromCart(item.id)}>Remove from Cart</button>
+            </div>
+          ))}
+          <button onClick={handleClearCart}>Clear Cart</button>
+          {/* Render products with add to cart button */}
+          <h2>Products</h2>
+          {productList.map(product => (
+            <div key={product.id}>
+              <h3>{product.name}</h3>
+              <p>Price: {product.price}</p>
+              <button onClick={() => handleAddToCart(product, 1)}>Add to Cart</button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
+
+export default CartManager;
